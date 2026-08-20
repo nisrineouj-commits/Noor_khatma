@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+<title>نور — الصلاة على النبي ﷺ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --night: #0e1620;
+    --night-deep: #080d13;
+    --sand: #efe6d3;
+    --sand-dim: #d9cfb8;
+    --gold: #c9a25d;
+    --gold-bright: #e6c98a;
+    --dawn: #e2a06f;
+    --dusk: #7a6aa8;
+    --teal: #4a7d78;
+    --ink: #1c2530;
+    --radius: 18px;
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color: transparent;}
+  html,body{margin:0;padding:0;}
+  body{
+    background: radial-gradient(120% 60% at 50% -10%, #1a2534 0%, var(--night) 45%, var(--night-deep) 100%);
+    color: var(--sand);
+    font-family: 'Tajawal', sans-serif;
+    min-height:100vh;
+    padding: 22px 14px 60px;
+    display:flex; flex-direction:column; align-items:center;
+  }
+  .wrap{ width:100%; max-width:460px; }
+  header{ text-align:center; margin-bottom: 18px; }
+  .eyebrow{ font-size:12px; letter-spacing:2px; color: var(--sand-dim); margin-bottom:6px; opacity:.85; }
+  h1{
+    font-family:'Aref Ruqaa', serif; font-weight:700; font-size: 30px; margin: 0 0 4px;
+    background: linear-gradient(90deg, var(--dawn), var(--gold-bright) 45%, var(--dusk));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .sub{ font-size:13.5px; color: var(--sand-dim); }
+
+  .arc-card{
+    background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.01));
+    border:1px solid rgba(255,255,255,.08); border-radius: var(--radius);
+    padding: 18px 10px 12px; margin: 18px 0 20px;
+  }
+  svg.arc{ width:100%; height:auto; display:block; }
+  .arc-label{ font-size: 11px; fill: var(--sand-dim); font-family:'Tajawal',sans-serif; }
+  .total-line{ text-align:center; font-size:12.5px; color: var(--sand-dim); margin-top:2px; }
+  .total-line b{ color: var(--gold-bright); font-weight:700; }
+
+  .card{
+    background: var(--sand); color: var(--ink); border-radius: var(--radius);
+    padding: 16px 16px 14px; margin-bottom: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,.28); position:relative; overflow:hidden;
+  }
+  .card.done{ box-shadow: 0 8px 28px rgba(201,162,93,.35); }
+  .card-top{ display:flex; align-items:center; justify-content:space-between; margin-bottom: 10px; }
+  .pname{ font-family:'Aref Ruqaa', serif; font-weight:700; font-size:20px; }
+  .pcount{
+    font-weight:800; font-size:18px; color: var(--teal); font-variant-numeric: tabular-nums;
+    direction: ltr; unicode-bidi: isolate; display:inline-block;
+  }
+  .pcount.done{ color:#a8792f; }
+  .bar-track{ height:8px; border-radius:5px; background: rgba(28,37,48,.12); overflow:hidden; margin-bottom:10px; }
+  .bar-fill{ height:100%; border-radius:5px; background: linear-gradient(90deg, var(--teal), var(--gold)); transition: width .25s ease; }
+  .who-line{ font-size:11.5px; color:#5b6572; margin-bottom:12px; min-height:14px; }
+  .actions{ display:flex; gap:8px; }
+  .btn{
+    flex:1; border:none; border-radius:12px; padding:12px 8px;
+    font-family:'Tajawal',sans-serif; font-weight:700; font-size:14.5px;
+    cursor:pointer; transition: transform .08s ease, opacity .15s ease;
+  }
+  .btn:active{ transform: scale(.95); }
+  .btn-main{ background: var(--ink); color: var(--sand); }
+  .btn-ghost{ background: rgba(28,37,48,.08); color: var(--ink); flex:0 0 60px; }
+
+  .done-tag{
+    position:absolute; top:0; left:0; background: var(--gold); color:#2a1e08;
+    font-size:11px; font-weight:800; padding:4px 10px 4px 12px; border-radius: 0 0 12px 0;
+  }
+  footer{ text-align:center; margin-top: 14px; font-size:12px; color: var(--sand-dim); line-height:1.9; padding: 0 10px; }
+
+  .overlay{
+    position:fixed; inset:0; background: rgba(8,13,19,.92);
+    display:flex; align-items:center; justify-content:center; z-index:50; padding: 20px;
+  }
+  .overlay-box{ background: var(--sand); color: var(--ink); border-radius: 20px; padding: 26px 22px; max-width: 340px; width:100%; text-align:center; }
+  .overlay-box h2{ font-family:'Aref Ruqaa', serif; font-size:22px; margin:0 0 8px; }
+  .overlay-box p{ font-size:13px; color:#555; margin:0 0 16px; line-height:1.7; }
+  .overlay-box input{
+    width:100%; padding:12px 14px; border-radius:12px; border:1.5px solid #cfc4a8;
+    font-family:'Tajawal',sans-serif; font-size:15px; margin-bottom:12px; background:#fff;
+  }
+  .overlay-box button{
+    width:100%; padding:12px; border:none; border-radius:12px;
+    background: var(--ink); color:var(--sand); font-weight:700; font-size:15px; cursor:pointer;
+  }
+  .status-dot{
+    display:inline-block; width:8px; height:8px; border-radius:50%;
+    background:#7fae7a; margin-inline-start:6px; vertical-align:middle;
+  }
+  .status-dot.off{ background:#b06a5a; }
+
+  @media (prefers-reduced-motion: reduce){ *{ transition:none !important; } }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">تطبيق مشترك</div>
+    <h1>نور — الصلاة على النبي ﷺ</h1>
+    <div class="sub" id="dateLine"></div>
+  </header>
+
+  <div class="arc-card">
+    <svg class="arc" viewBox="0 0 440 120" id="arcSvg"></svg>
+    <div class="total-line" id="totalLine"></div>
+  </div>
+
+  <div id="cards"></div>
+
+  <footer>
+    مئة صلاة على النبي ﷺ بعد كل فريضة — يتجدد العدّاد كل يوم تلقائيًا.<br>
+    مزامنة فورية <span class="status-dot" id="statusDot"></span><span id="statusText">متصلة</span>
+  </footer>
+</div>
+
+<div class="overlay" id="nameOverlay">
+  <div class="overlay-box">
+    <h2>مرحبًا بك 🌙</h2>
+    <p>اكتبي اسمك ليتم تمييز صلواتك ضمن العدّاد المشترك مع صديقتك.</p>
+    <input type="text" id="nameInput" placeholder="مثال: نسرين" maxlength="20">
+    <button id="nameSave">ابدئي</button>
+  </div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+import {
+  getDatabase, ref, onValue, runTransaction
+} from "https://www.gstatic.com/firebasejs/10.13.0/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyD7IjR9AtifDzi5bbaH68T9uuYoc5lCknM",
+  authDomain: "noornono-52d80.firebaseapp.com",
+  databaseURL: "https://noornono-52d80-default-rtdb.firebaseio.com",
+  projectId: "noornono-52d80",
+  storageBucket: "noornono-52d80.firebasestorage.app",
+  messagingSenderId: "1008913378551",
+  appId: "1:1008913378551:web:6b6bc546a19f8aa6ebf7f2"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+const PRAYERS = [
+  {key:'fajr',    name:'الفجر',   tone:'#e2a06f'},
+  {key:'dhuhr',   name:'الظهر',   tone:'#e6c470'},
+  {key:'asr',     name:'العصر',   tone:'#c9a25d'},
+  {key:'maghrib', name:'المغرب', tone:'#8a6fae'},
+  {key:'isha',    name:'العشاء', tone:'#5f6bab'},
+];
+const TARGET = 100;
+
+function todayKey(){ return new Date().toISOString().slice(0,10); }
+function sanitize(name){ return name.replace(/[.#$\/\[\]]/g, '_'); }
+
+let myName = null;
+let myKey = null;
+let state = {}; // prayerKey -> {name: count}
+
+function total(counts){ return Object.values(counts || {}).reduce((a,b)=>a+b, 0); }
+
+function formatDate(){
+  return new Date().toLocaleDateString('ar-EG', { weekday:'long', day:'numeric', month:'long' });
+}
+
+function renderArc(){
+  const svg = document.getElementById('arcSvg');
+  const cx = [40, 140, 220, 300, 400], cy = 70;
+  let path = `M ${cx[0]} ${cy}`;
+  for(let i=1;i<cx.length;i++){
+    const midx = (cx[i-1]+cx[i])/2;
+    path += ` Q ${midx} ${cy-38}, ${cx[i]} ${cy}`;
+  }
+  let dots = '', labels = '';
+  PRAYERS.forEach((p,i)=>{
+    const t = Math.min(total(state[p.key])/TARGET, 1);
+    const filled = t >= 1;
+    dots += `
+      <circle cx="${cx[i]}" cy="${cy}" r="14" fill="${filled ? 'rgba(230,201,138,.35)' : 'none'}" />
+      <circle cx="${cx[i]}" cy="${cy}" r="9" fill="${filled ? '#e6c98a' : '#1c2530'}" stroke="${p.tone}" stroke-width="2.5"/>
+    `;
+    labels += `<text x="${cx[i]}" y="${cy+28}" text-anchor="middle" class="arc-label">${p.name}</text>`;
+  });
+  svg.setAttribute('viewBox', `0 0 440 120`);
+  svg.innerHTML = `<path d="${path}" stroke="rgba(255,255,255,.15)" stroke-width="2" fill="none"/>${dots}${labels}`;
+}
+
+function renderTotalLine(){
+  const grand = PRAYERS.reduce((s,p)=> s + total(state[p.key]), 0);
+  document.getElementById('totalLine').innerHTML =
+    `اليوم: <b>${grand}</b> من <b>${PRAYERS.length * TARGET}</b> صلاة على النبي ﷺ`;
+}
+
+function whoLine(counts){
+  const entries = Object.entries(counts || {}).filter(([,v])=>v>0);
+  if(entries.length===0) return 'لم يبدأ أحد بعد اليوم';
+  return entries.map(([n,v])=>`${n}: ${v}`).join(' · ');
+}
+
+function renderCards(){
+  const container = document.getElementById('cards');
+  container.innerHTML = '';
+  PRAYERS.forEach(p=>{
+    const counts = state[p.key] || {};
+    const t = total(counts);
+    const pct = Math.min(t/TARGET*100, 100);
+    const done = t >= TARGET;
+    const card = document.createElement('div');
+    card.className = 'card' + (done ? ' done' : '');
+    card.innerHTML = `
+      ${done ? '<div class="done-tag">✓ اكتملت</div>' : ''}
+      <div class="card-top">
+        <div class="pname">${p.name}</div>
+        <div class="pcount ${done?'done':''}">${t} / ${TARGET}</div>
+      </div>
+      <div class="bar-track"><div class="bar-fill" style="width:${pct}%"></div></div>
+      <div class="who-line">${whoLine(counts)}</div>
+      <div class="actions">
+        <button class="btn btn-main" data-add="1" data-p="${p.key}">صلّيت عليه ﷺ +1</button>
+        <button class="btn btn-ghost" data-add="10" data-p="${p.key}">١٠+</button>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+
+  container.querySelectorAll('button[data-add]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const pKey = btn.getAttribute('data-p');
+      const add = parseInt(btn.getAttribute('data-add'), 10);
+      const cellRef = ref(db, `salawat/${todayKey()}/${pKey}/${myKey}`);
+      runTransaction(cellRef, (curr)=> (curr || 0) + add);
+      // العرض يتحدث تلقائيًا عبر onValue بعد لحظات — لا حاجة لتحديث يدوي هنا
+    });
+  });
+}
+
+function listenToday(){
+  const dayRef = ref(db, `salawat/${todayKey()}`);
+  onValue(dayRef, (snap)=>{
+    const val = snap.val() || {};
+    state = {};
+    PRAYERS.forEach(p=>{ state[p.key] = val[p.key] || {}; });
+    renderCards();
+    renderArc();
+    renderTotalLine();
+    setStatus(true);
+  }, ()=> setStatus(false));
+}
+
+function setStatus(ok){
+  document.getElementById('statusDot').classList.toggle('off', !ok);
+  document.getElementById('statusText').textContent = ok ? 'متصلة' : 'غير متصلة';
+}
+
+function init(){
+  document.getElementById('dateLine').textContent = formatDate();
+  myName = localStorage.getItem('salawat-my-name');
+  if(!myName){
+    document.getElementById('nameOverlay').style.display = 'flex';
+    document.getElementById('nameSave').addEventListener('click', ()=>{
+      const val = document.getElementById('nameInput').value.trim();
+      if(!val) return;
+      myName = val;
+      myKey = sanitize(val);
+      localStorage.setItem('salawat-my-name', val);
+      document.getElementById('nameOverlay').style.display = 'none';
+      listenToday();
+    });
+    document.getElementById('nameInput').addEventListener('keydown', (e)=>{
+      if(e.key==='Enter') document.getElementById('nameSave').click();
+    });
+  }else{
+    myKey = sanitize(myName);
+    document.getElementById('nameOverlay').style.display = 'none';
+    listenToday();
+  }
+}
+init();
+</script>
+</body>
+</html>
